@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IAlgebraV2Twap} from "./interfaces/IAlgebraV2Twap.sol";
 import {IAggregatorInterface} from "./interfaces/IAggregatorInterface.sol";
 
@@ -52,13 +52,13 @@ contract TwapOracleAggregator {
      * @return token1Price Price of token1.
      */
     function latestAnswer() external view returns (uint256 token1Price) {
-        uint8 decimals = IERC20(TOKEN1).decimals();
+        uint8 decimals = ERC20(TOKEN1).decimals();
         uint256 token2Amount = TWAP_ORACLE.estimateAmountOut(TOKEN1, TOKEN2, 100000 * decimals, 3600);
 
         int256 token2Price = TOKEN2_CHAINLINK_FEED.latestAnswer();
 
-        if(token2Price < 0) revert InvalidPrice();
+        if(token2Price < 0) revert InvalidOraclePrice();
 
-        token1Price = (token2Price * token2Amount) / 100000 * decimals;
+        token1Price = (uint256(token2Price) * token2Amount) / 100000 * decimals;
     }
 }
