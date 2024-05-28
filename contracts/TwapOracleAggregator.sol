@@ -5,7 +5,6 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IAlgebraV2Twap} from "./interfaces/IAlgebraV2Twap.sol";
 import {IAggregatorInterface} from "./interfaces/IAggregatorInterface.sol";
 
-
 contract TwapOracleAggregator {
     /**
      * @notice Stores address of the token1.
@@ -40,11 +39,26 @@ contract TwapOracleAggregator {
      * @param token1Address Address of the token1.
      * @param token2Address Address of the token2.
      */
-    constructor(IAlgebraV2Twap twapOracleAddress, IAggregatorInterface token2ChainlinkFeedAddress, address token1Address, address token2Address) {
+    constructor(
+        IAlgebraV2Twap twapOracleAddress,
+        IAggregatorInterface token2ChainlinkFeedAddress,
+        address token1Address,
+        address token2Address
+    ) {
         TWAP_ORACLE = IAlgebraV2Twap(twapOracleAddress);
-        TOKEN2_CHAINLINK_FEED = IAggregatorInterface(token2ChainlinkFeedAddress);
+        TOKEN2_CHAINLINK_FEED = IAggregatorInterface(
+            token2ChainlinkFeedAddress
+        );
         TOKEN1 = token1Address;
         TOKEN2 = token2Address;
+    }
+
+    /**
+     * @notice This function returns the decimals of the feed
+     * @return Decimals of the feed
+     */
+    function decimals() public view virtual returns (uint8) {
+        return 8;
     }
 
     /**
@@ -53,12 +67,18 @@ contract TwapOracleAggregator {
      */
     function latestAnswer() external view returns (uint256 token1Price) {
         uint8 decimals = ERC20(TOKEN1).decimals();
-        uint256 token2Amount = TWAP_ORACLE.estimateAmountOut(TOKEN1, TOKEN2, 100000 * decimals, 3600);
+        uint256 token1Amount = 1000000 * (10 ** decimals);
+        uint256 token2Amount = TWAP_ORACLE.estimateAmountOut(
+            TOKEN1,
+            TOKEN2,
+            uint128(token1Amount),
+            3600
+        );
 
         int256 token2Price = TOKEN2_CHAINLINK_FEED.latestAnswer();
 
-        if(token2Price < 0) revert InvalidOraclePrice();
+        if (token2Price < 0) revert InvalidOraclePrice();
 
-        token1Price = (uint256(token2Price) * token2Amount) / 100000 * decimals;
+        token1Price = (uint256(token2Price) * token2Amount) / (token1Amount);
     }
 }
