@@ -30,6 +30,10 @@ const config: HardhatUserConfig = {
       url: `https://pacific-rpc.manta.network/http`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
+    mainnet: {
+      url: "https://ethereum.blockpi.network/v1/rpc/public",
+      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
+    },
   },
   etherscan: {
     apiKey: {
@@ -37,7 +41,7 @@ const config: HardhatUserConfig = {
       linea: process.env.LINEASCAN_KEY || "",
       xLayer: process.env.XLAYER_KEY || "",
       mainnet: process.env.ETHERSCAN_KEY || "",
-      manta: "",
+      manta: process.env.MANTASCAN_KEY || "",
       era: process.env.ZKSYNC_KEY || "",
     },
     customChains: [
@@ -72,6 +76,14 @@ const config: HardhatUserConfig = {
           apiURL:
             "https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/XLAYER",
           browserURL: "https://www.oklink.com/xlayer", //or https://www.oklink.com/xlayer for mainnet
+        },
+      },
+      {
+        network: "mainnet",
+        chainId: 1,
+        urls: {
+          apiURL: "https://api.etherscan.io/api",
+          browserURL: "https://etherscan.io",
         },
       },
     ],
