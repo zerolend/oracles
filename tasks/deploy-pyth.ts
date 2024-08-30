@@ -1,5 +1,5 @@
 import { task } from "hardhat/config";
-import { isAddress } from "ethers/lib/utils";
+import { isAddress } from "ethers";
 import { pythContracts } from "../utils/pyth";
 
 task(`deploy-pyth`)

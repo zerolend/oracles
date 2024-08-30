@@ -1,5 +1,5 @@
 import { task } from "hardhat/config";
-import { isAddress } from "ethers/lib/utils";
+import { isAddress } from "ethers";
 
 task(`deploy-api3`)
   .addParam("proxyaddress")
