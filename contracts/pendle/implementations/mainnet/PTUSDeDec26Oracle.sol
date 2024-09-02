@@ -11,7 +11,7 @@ contract MorphoFeedPTUSDeDec26 is BaseFeedPTPendle {
     string public constant description = "PT-USDe/USD Oracle";
 
     /// @notice Constructor for an oracle following BaseFeedPTPendle
-    /// @param _maxImpliedRate The maximum implied rate for the underlying asset,   
+    /// @param _maxImpliedRate The maximum implied rate for the underlying asset,
     /// if set well it allows to have a lower bound on the PT token price
     /// @param _twapDuration The duration of the TWAP used to calculate the PT price
     constructor(
@@ -19,10 +19,6 @@ contract MorphoFeedPTUSDeDec26 is BaseFeedPTPendle {
         uint32 _twapDuration,
         address _ethUsdAggregator
     ) BaseFeedPTPendle(_maxImpliedRate, _twapDuration, _ethUsdAggregator) {}
-
-    /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                       OVERRIDES                                                    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
     function asset() public pure override returns (address) {
         return 0x9D39A5DE30e57443BfF2A8307A4256c8797A3497;
