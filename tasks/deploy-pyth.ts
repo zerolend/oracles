@@ -11,7 +11,7 @@ task(`deploy-pyth`)
     const args: [`0x${string}`, `0x${string}`] = [pythContract, priceid];
 
     console.log("args", args);
-    const contract = await hre.viem.deployContract("PythAggregatorV3", args);
+    const contract = await hre.ethers.deployContract("PythAggregatorV3", args);
     console.log(`deployed to`, contract.address);
 
     // verify contract for tesnet & mainnet

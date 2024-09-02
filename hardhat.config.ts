@@ -1,6 +1,4 @@
-import type { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox-viem";
-
+import "@nomicfoundation/hardhat-ethers";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -9,11 +7,17 @@ import "./tasks/deploy-api3-eth";
 import "./tasks/deploy-pyth";
 import "./tasks/update-pyth";
 
-const config: HardhatUserConfig = {
+const ALCHEMY_KEY = process.env.ALCHEMY_KEY || "";
+
+export default {
   solidity: "0.8.20",
   defaultNetwork: "linea",
   networks: {
-    hardhat: {},
+    hardhat: {
+      forking: {
+        url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`,
+      },
+    },
     blast: {
       url: `https://rpc.blast.io`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
@@ -77,5 +81,3 @@ const config: HardhatUserConfig = {
     ],
   },
 };
-
-export default config;
