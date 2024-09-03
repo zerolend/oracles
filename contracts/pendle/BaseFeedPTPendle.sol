@@ -14,7 +14,6 @@
 pragma solidity ^0.8.12;
 
 import {IAggregatorInterface} from "../interfaces/IAggregatorInterface.sol";
-
 import {BaseOraclePTPendle} from "./BaseOraclePTPendle.sol";
 
 /// @title BaseFeedPtPendle
@@ -44,6 +43,10 @@ abstract contract BaseFeedPTPendle is IAggregatorInterface, BaseOraclePTPendle {
 
     function rawPrice() external view returns (uint256) {
         return _getQuoteAmount();
+    }
+
+    function usdPrice() external view returns (uint256) {
+        return uint256(assetUsdAggregator.latestAnswer());
     }
 
     /// @inheritdoc IAggregatorInterface

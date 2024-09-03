@@ -5,7 +5,7 @@ task(`deploy-pendle`)
   .setAction(async ({ id }, hre) => {
     const [deployer] = await hre.ethers.getSigners();
 
-    console.log("deploying", id, deployer.address);
+    console.log("deploying", id, "from", deployer.address);
     const contract = await hre.deployments.deploy(id, {
       from: deployer.address,
       args: [],

@@ -1,8 +1,10 @@
 import { ethers } from "hardhat";
 import { expect } from "chai";
 import { BaseContract, ContractTransactionResponse, Contract } from "ethers";
+import { increaseTo } from "@nomicfoundation/hardhat-network-helpers/dist/src/helpers/time";
+import { mine } from "@nomicfoundation/hardhat-network-helpers";
 
-describe("PTrsETHSept262024Oracle Fork Test", function () {
+describe.only("PTrsETHSept262024Oracle Fork Test", function () {
   let oracle: BaseContract & {
     deploymentTransaction(): ContractTransactionResponse;
   } & Omit<Contract, keyof BaseContract>;
@@ -17,22 +19,31 @@ describe("PTrsETHSept262024Oracle Fork Test", function () {
     );
     oracle = await MorphoOracle.deploy();
     await oracle.waitForDeployment();
-
-    console.log("deployed", oracle.target);
   });
 
-  it.only("should return the correct rsETH/USD price with 8 decimals", async function () {
-    // Call the latestAnswer function to get the inETH/USD price
+  it("should return the correct rsETH/USD price with 8 decimals", async function () {
+    const usdPrice = await oracle.usdPrice();
     const rawPrice = await oracle.rawPrice();
-    console.log("PT-rsETH/rsETH Price:", rawPrice.toString());
+    const latestAnswer = await oracle.latestAnswer();
 
-    const value = await oracle.latestAnswer();
-
-    console.log("PT-rsETH/USD Price:", (Number(value) / 1e8).toString());
-    // Print the results to the console for debugging
+    console.log("PT-rsETH/rsETH Price:", Number(rawPrice) / 1e18);
+    console.log("rsETH/USD Price:", Number(usdPrice) / 1e8);
+    console.log("PT-rsETH/USD Price:", (Number(latestAnswer) / 1e8).toString());
 
     // Assertions to ensure the returned value is within a reasonable range
-    expect(parseInt(value)).to.be.greaterThan(0);
+    expect(parseInt(latestAnswer)).to.be.greaterThan(0);
     // You can add additional checks here based on the current price range of ETH/USD
+  });
+
+  it("should return rsETH/USD price after expiry", async function () {
+    await increaseTo(1727308800 + 10);
+    await mine();
+
+    const usdPrice = await oracle.usdPrice();
+    const rawPrice = await oracle.rawPrice();
+    const latestAnswer = await oracle.latestAnswer();
+
+    expect(parseInt(rawPrice)).to.be.eq(1e18);
+    expect(parseInt(latestAnswer)).to.be.eq(parseInt(usdPrice));
   });
 });

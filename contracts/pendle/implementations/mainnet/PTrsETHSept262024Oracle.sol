@@ -1,10 +1,21 @@
 // SPDX-License-Identifier: GPL-3.0
 
+// ███████╗███████╗██████╗  ██████╗
+// ╚══███╔╝██╔════╝██╔══██╗██╔═══██╗
+//   ███╔╝ █████╗  ██████╔╝██║   ██║
+//  ███╔╝  ██╔══╝  ██╔══██╗██║   ██║
+// ███████╗███████╗██║  ██║╚██████╔╝
+// ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝
+
+// Website: https://zerolend.xyz
+// Discord: https://discord.gg/zerolend
+// Twitter: https://twitter.com/zerolendxyz
+
 pragma solidity ^0.8.12;
 
 import "../../BaseFeedPTPendle.sol";
 
-/// @title MorphoFeedPTUSDe
+/// @title PTrsETHSept262024Oracle
 /// @author Zerolend.
 /// @notice Gives the price of PT-rsETH in ETH in base 8
 contract PTrsETHSept262024Oracle is BaseFeedPTPendle {
@@ -13,9 +24,9 @@ contract PTrsETHSept262024Oracle is BaseFeedPTPendle {
     /// @notice Constructor for an oracle following BaseFeedPTPendle
     constructor()
         BaseFeedPTPendle(
-            80e18 / 100, // lower bound is 80%  - 0.8
-            105e18 / 100, // upper bound is 5%  - 1.05
-            30 * 60,
+            85e18 / 100, // lower bound is -15%  - 0.85
+            105e18 / 100, // upper bound is +5%  - 1.05
+            6 * 60 * 60,
             0x33B13F46a25D836CC0ce91B370305902aB6CF1Be // rsETH/USD oracle
         )
     {}

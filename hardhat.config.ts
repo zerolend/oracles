@@ -28,6 +28,7 @@ export default {
     },
     mainnet: {
       url: `https://rpc.ankr.com/eth`,
+      saveDeployments: true,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
     linea: {

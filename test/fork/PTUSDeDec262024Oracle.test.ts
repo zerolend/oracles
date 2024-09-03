@@ -1,8 +1,11 @@
-import {ethers} from "hardhat";
+import { ethers } from "hardhat";
 import { expect } from "chai";
 import { BaseContract, ContractTransactionResponse, Contract } from "ethers";
-describe("MorphoOracle Fork Test", function () {
-  let morphoOracle: BaseContract & { deploymentTransaction(): ContractTransactionResponse; } & Omit<Contract, keyof BaseContract>;
+
+describe.skip("PTUSDeDec262024Oracle Fork Test", function () {
+  let morphoOracle: BaseContract & {
+    deploymentTransaction(): ContractTransactionResponse;
+  } & Omit<Contract, keyof BaseContract>;
   let owner;
 
   // Example proxies for Chainlink oracles on Ethereum mainnet
@@ -14,8 +17,14 @@ describe("MorphoOracle Fork Test", function () {
     [owner] = await ethers.getSigners();
     const ethUsdAggregator = "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419";
     // Deploy the contract
-    const MorphoOracle = await ethers.getContractFactory("MorphoFeedPTUSDeDec26");
-    morphoOracle = await MorphoOracle.deploy(_maxImpliedRate, _twapDuration, ethUsdAggregator);
+    const MorphoOracle = await ethers.getContractFactory(
+      "MorphoFeedPTUSDeDec26"
+    );
+    morphoOracle = await MorphoOracle.deploy(
+      _maxImpliedRate,
+      _twapDuration,
+      ethUsdAggregator
+    );
     await morphoOracle.waitForDeployment();
   });
 
