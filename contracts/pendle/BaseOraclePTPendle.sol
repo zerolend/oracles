@@ -28,29 +28,43 @@ abstract contract BaseOraclePTPendle {
     /// @notice The maximum implied rate for the underlying asset, if set well it allows to have a lower bound on the PT token price
     uint256 public immutable maxImpliedRate;
 
+    uint256 public immutable maxUpperBound;
+
     /// @notice The duration of the TWAP used to calculate the PT price
     uint32 public immutable twapDuration;
 
     error TwapDurationTooLow();
 
-    constructor(uint256 _maxImpliedRate, uint32 _twapDuration) {
+    constructor(
+        uint256 _maxImpliedRate,
+        uint256 _maxUpperBound,
+        uint32 _twapDuration
+    ) {
         if (_twapDuration < 15 minutes) revert TwapDurationTooLow();
         maxImpliedRate = _maxImpliedRate;
         twapDuration = _twapDuration;
+        maxUpperBound = _maxUpperBound;
     }
 
+    // invariant: the price is bound by the maxUpperBound and the economical lower bound
     function _getQuoteAmount() internal view virtual returns (uint256 quote) {
         (uint256 pendlePrice, uint256 index) = _pendlePTPrice(
             IPMarket(market()),
             twapDuration
         );
+
         uint256 economicalLowerBound = (_economicalPTLowerBoundPrice() *
             BASE_18) / index;
+
         uint256 minPrice = economicalLowerBound > pendlePrice
             ? pendlePrice
             : economicalLowerBound;
 
-        quote = (_detectHackRatio() * minPrice) / BASE_18;
+        uint256 maxMinPrice = maxUpperBound > minPrice
+            ? minPrice
+            : maxUpperBound;
+
+        quote = (_detectHackRatio() * maxMinPrice) / BASE_18;
     }
 
     function _economicalPTLowerBoundPrice()

@@ -30,15 +30,20 @@ abstract contract BaseFeedPTPendle is IAggregatorInterface, BaseOraclePTPendle {
     /// @param _twapDuration The duration of the TWAP used to calculate the PT price
     constructor(
         uint256 _maxImpliedRate,
+        uint256 _maxUpperBound,
         uint32 _twapDuration,
         address _assetUsdAggregator
-    ) BaseOraclePTPendle(_maxImpliedRate, _twapDuration) {
+    ) BaseOraclePTPendle(_maxImpliedRate, _maxUpperBound, _twapDuration) {
         assetUsdAggregator = IAggregatorInterface(_assetUsdAggregator);
     }
 
     /// @inheritdoc IAggregatorInterface
     function decimals() external pure override returns (uint8) {
         return 8;
+    }
+
+    function rawPrice() external view returns (uint256) {
+        return _getQuoteAmount();
     }
 
     /// @inheritdoc IAggregatorInterface

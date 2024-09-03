@@ -1,25 +1,33 @@
 import "@nomicfoundation/hardhat-ethers";
+import "hardhat-deploy";
+import "@nomicfoundation/hardhat-verify";
+
 import dotenv from "dotenv";
 dotenv.config();
 
 import "./tasks/deploy-api3";
 import "./tasks/deploy-api3-eth";
 import "./tasks/deploy-pyth";
+import "./tasks/deploy-pendle";
 import "./tasks/update-pyth";
 
 const ALCHEMY_KEY = process.env.ALCHEMY_KEY || "";
 
 export default {
   solidity: "0.8.20",
-  defaultNetwork: "linea",
+  defaultNetwork: "hardhat",
   networks: {
     hardhat: {
       forking: {
-        url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`,
+        url: `https://cloudflare-eth.com`,
       },
     },
     blast: {
       url: `https://rpc.blast.io`,
+      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
+    },
+    mainnet: {
+      url: `https://rpc.ankr.com/eth`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
     linea: {

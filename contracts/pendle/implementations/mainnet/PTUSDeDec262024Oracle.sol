@@ -4,10 +4,10 @@ pragma solidity ^0.8.12;
 
 import "../../BaseFeedPTPendle.sol";
 
-/// @title MorphoFeedPTUSDe
+/// @title PTUSDeDec262024Oracle
 /// @author Zerolend.
 /// @notice Gives the price of PT-USDe in ETH in base 8
-contract MorphoFeedPTUSDeDec26 is BaseFeedPTPendle {
+contract PTUSDeDec262024Oracle is BaseFeedPTPendle {
     string public constant description = "PT-USDe/USD Oracle";
 
     /// @notice Constructor for an oracle following BaseFeedPTPendle
@@ -18,7 +18,14 @@ contract MorphoFeedPTUSDeDec26 is BaseFeedPTPendle {
         uint256 _maxImpliedRate,
         uint32 _twapDuration,
         address _ethUsdAggregator
-    ) BaseFeedPTPendle(_maxImpliedRate, _twapDuration, _ethUsdAggregator) {}
+    )
+        BaseFeedPTPendle(
+            _maxImpliedRate,
+            1e18,
+            _twapDuration,
+            _ethUsdAggregator
+        )
+    {}
 
     function asset() public pure override returns (address) {
         return 0x9D39A5DE30e57443BfF2A8307A4256c8797A3497;

@@ -10,11 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
     "@openzeppelin/contracts": "^5.0.2",
     "@pythnetwork/pyth-evm-js": "^1.46.0",
     "@pythnetwork/pyth-sdk-solidity": "^3.1.0",
     "dotenv": "^16.4.5",
-    "hardhat": "^2.22.4"
+    "hardhat": "^2.22.4",
+    "hardhat-deploy": "^0.12.4",
+    "viem": "^2.21.1"
   },
   "devDependencies": {
     "@chainlink/contracts": "^1.2.0",
