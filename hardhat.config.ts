@@ -27,7 +27,7 @@ export default {
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
     mainnet: {
-      url: `https://rpc.ankr.com/eth`,
+      url: `https://cloudflare-eth.com`,
       saveDeployments: true,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
