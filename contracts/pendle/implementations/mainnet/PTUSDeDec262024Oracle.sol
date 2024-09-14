@@ -8,7 +8,7 @@ import "../../BaseFeedPTPendle.sol";
 /// @author Zerolend.
 /// @notice Gives the price of PT-USDe in ETH in base 8
 contract PTUSDeDec262024Oracle is BaseFeedPTPendle {
-    string public constant description = "PT-USDe/USD Oracle";
+    string public constant description = "PT-USDe/USD Oracle Dec 26 2024";
 
     /// @notice Constructor for an oracle following BaseFeedPTPendle
     /// @param _maxImpliedRate The maximum implied rate for the underlying asset,
@@ -23,23 +23,12 @@ contract PTUSDeDec262024Oracle is BaseFeedPTPendle {
             _maxImpliedRate,
             1e18,
             _twapDuration,
-            _ethUsdAggregator
+            _ethUsdAggregator,
+            1e18,
+            0xa0ab94DeBB3cC9A7eA77f3205ba4AB23276feD08,
+            true
         )
-    {}
-
-    function asset() public pure override returns (address) {
-        return 0x9D39A5DE30e57443BfF2A8307A4256c8797A3497;
-    }
-
-    function sy() public pure override returns (address) {
-        return 0xD288755556c235afFfb6316702719C32bD8706e8;
-    }
-
-    function maturity() public pure override returns (uint256) {
-        return 1735171200;
-    }
-
-    function market() public pure override returns (address) {
-        return 0xa0ab94DeBB3cC9A7eA77f3205ba4AB23276feD08;
+    {
+        // nothing
     }
 }

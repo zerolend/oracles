@@ -11,8 +11,6 @@ import "./tasks/deploy-pyth";
 import "./tasks/deploy-pendle";
 import "./tasks/update-pyth";
 
-const ALCHEMY_KEY = process.env.ALCHEMY_KEY || "";
-
 export default {
   solidity: "0.8.20",
   defaultNetwork: "hardhat",
@@ -29,6 +27,7 @@ export default {
     mainnet: {
       url: `https://cloudflare-eth.com`,
       saveDeployments: true,
+      gasPrice: 2000000000,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
     linea: {

@@ -9,6 +9,7 @@ task(`deploy-pendle`)
     const contract = await hre.deployments.deploy(id, {
       from: deployer.address,
       args: [],
+      nonce: 696,
       skipIfAlreadyDeployed: true,
     });
     console.log(`deployed to`, contract.address);

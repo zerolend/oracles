@@ -31,8 +31,20 @@ abstract contract BaseFeedPTPendle is IAggregatorInterface, BaseOraclePTPendle {
         uint256 _maxImpliedRate,
         uint256 _maxUpperBound,
         uint32 _twapDuration,
-        address _assetUsdAggregator
-    ) BaseOraclePTPendle(_maxImpliedRate, _maxUpperBound, _twapDuration) {
+        address _assetUsdAggregator,
+        uint256 _unit,
+        address _market,
+        bool _enableBalanceCheck
+    )
+        BaseOraclePTPendle(
+            _maxImpliedRate,
+            _maxUpperBound,
+            _twapDuration,
+            _unit,
+            _market,
+            _enableBalanceCheck
+        )
+    {
         assetUsdAggregator = IAggregatorInterface(_assetUsdAggregator);
     }
 

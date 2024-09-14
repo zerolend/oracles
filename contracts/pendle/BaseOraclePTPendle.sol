@@ -14,7 +14,7 @@
 pragma solidity ^0.8.12;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {IPMarket} from "@pendle/core-v2/contracts/interfaces/IPMarket.sol";
+import {IStandardizedYield, IPMarket} from "@pendle/core-v2/contracts/interfaces/IPMarket.sol";
 import {PendlePYOracleLib} from "@pendle/core-v2/contracts/oracles/PendlePYOracleLib.sol";
 
 /// @title BaseOraclePTPendle
@@ -30,31 +30,49 @@ abstract contract BaseOraclePTPendle {
     /// @notice The duration of the TWAP used to calculate the PT price
     uint32 public immutable twapDuration;
 
+    uint256 public immutable UNIT;
+
+    IERC20 public immutable asset;
+    IStandardizedYield public immutable sy;
+    IPMarket public immutable market;
+    uint256 public immutable maturity;
+
+    bool public enableBalanceCheck;
+
     error TwapDurationTooLow();
 
     constructor(
         uint256 _maxLowerBound,
         uint256 _maxUpperBound,
-        uint32 _twapDuration
+        uint32 _twapDuration,
+        uint256 _unit,
+        address _market,
+        bool _enableBalanceCheck
     ) {
         if (_twapDuration < 15 minutes) revert TwapDurationTooLow();
         maxLowerBound = _maxLowerBound;
         twapDuration = _twapDuration;
         maxUpperBound = _maxUpperBound;
+        UNIT = _unit;
+
+        enableBalanceCheck = _enableBalanceCheck;
+
+        // read the market
+        market = IPMarket(_market);
+        (sy, , ) = market.readTokens();
+        asset = IERC20(sy.yieldToken());
+        maturity = market.expiry();
     }
 
     // invariant: the price is bound by the maxUpperBound and the economical lower bound
     function _getQuoteAmount() internal view virtual returns (uint256 quote) {
-        (uint256 pendlePrice, ) = _pendlePTPrice(
-            IPMarket(market()),
-            twapDuration
-        );
+        (uint256 pendlePrice, ) = _pendlePTPrice(market, twapDuration);
 
         // set min-max limits
         pendlePrice = maxLowerBound < pendlePrice ? pendlePrice : maxLowerBound;
         pendlePrice = maxUpperBound > pendlePrice ? pendlePrice : maxUpperBound;
 
-        quote = (_detectHackRatio() * pendlePrice) / BASE_18;
+        quote = (_detectHackRatio() * pendlePrice) / UNIT;
     }
 
     /// @dev Depending on the market you should use
@@ -67,24 +85,17 @@ abstract contract BaseOraclePTPendle {
     ) internal view virtual returns (uint256, uint256) {
         return (
             PendlePYOracleLib.getPtToAssetRate(_market, _twapDuration),
-            BASE_18
+            UNIT
         );
     }
 
     function _detectHackRatio() internal view returns (uint256) {
-        uint256 assetBalanceSY = IERC20(asset()).balanceOf(sy());
-        uint256 totalSupplySY = IERC20(sy()).totalSupply();
+        if (!enableBalanceCheck) return UNIT;
+        uint256 assetBalanceSY = asset.balanceOf(address(sy));
+        uint256 totalSupplySY = sy.totalSupply();
         return
             assetBalanceSY > totalSupplySY
-                ? BASE_18
-                : (assetBalanceSY * BASE_18) / totalSupplySY;
+                ? UNIT
+                : (assetBalanceSY * UNIT) / totalSupplySY;
     }
-
-    function asset() public pure virtual returns (address);
-
-    function sy() public pure virtual returns (address);
-
-    function maturity() public pure virtual returns (uint256);
-
-    function market() public pure virtual returns (address);
 }

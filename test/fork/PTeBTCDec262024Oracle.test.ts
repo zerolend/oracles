@@ -4,7 +4,7 @@ import { BaseContract, ContractTransactionResponse, Contract } from "ethers";
 import { increaseTo } from "@nomicfoundation/hardhat-network-helpers/dist/src/helpers/time";
 import { mine } from "@nomicfoundation/hardhat-network-helpers";
 
-describe("PTrsETHSept262024Oracle Fork Test", function () {
+describe.only("PTeBTCDec262024Oracle Fork Test", function () {
   let oracle: BaseContract & {
     deploymentTransaction(): ContractTransactionResponse;
   } & Omit<Contract, keyof BaseContract>;
@@ -15,28 +15,28 @@ describe("PTrsETHSept262024Oracle Fork Test", function () {
     [owner] = await ethers.getSigners();
     // Deploy the contract
     const MorphoOracle = await ethers.getContractFactory(
-      "PTrsETHSept262024Oracle"
+      "PTeBTCDec262024Oracle"
     );
     oracle = await MorphoOracle.deploy();
     await oracle.waitForDeployment();
   });
 
-  it("should return the correct rsETH/USD price with 8 decimals", async function () {
+  it("should return the correct eBTC/USD price with 8 decimals", async function () {
     const usdPrice = await oracle.usdPrice();
     const rawPrice = await oracle.rawPrice();
     const latestAnswer = await oracle.latestAnswer();
 
-    console.log("PT-rsETH/rsETH Price:", Number(rawPrice) / 1e18);
-    console.log("rsETH/USD Price:", Number(usdPrice) / 1e8);
-    console.log("PT-rsETH/USD Price:", (Number(latestAnswer) / 1e8).toString());
+    console.log("PT-eBTC/eBTC Price:", Number(rawPrice) / 1e18);
+    console.log("eBTC/USD Price:", Number(usdPrice) / 1e8);
+    console.log("PT-eBTC/USD Price:", (Number(latestAnswer) / 1e8).toString());
 
     // Assertions to ensure the returned value is within a reasonable range
     expect(parseInt(latestAnswer)).to.be.greaterThan(0);
     // You can add additional checks here based on the current price range of ETH/USD
   });
 
-  it("should return rsETH/USD price after expiry", async function () {
-    await increaseTo(1727308800 + 10);
+  it("should return eBTC/USD price after expiry", async function () {
+    await increaseTo(1735171200 + 10);
     await mine();
 
     const usdPrice = await oracle.usdPrice();

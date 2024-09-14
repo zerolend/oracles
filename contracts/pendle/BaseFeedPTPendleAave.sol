@@ -30,8 +30,6 @@ abstract contract BaseFeedPTPendleAave is
     /// @notice The address of the asset to USD aggregator
     IAaveOracle public oracle;
 
-    address public underlying;
-
     /// @notice Constructor for an oracle following AggregatorV2V3Interface
     /// @param _maxImpliedRate The maximum implied rate for the underlying asset,
     /// if set well it allows to have a lower bound on the PT token price
@@ -40,8 +38,20 @@ abstract contract BaseFeedPTPendleAave is
         uint256 _maxImpliedRate,
         uint256 _maxUpperBound,
         uint32 _twapDuration,
-        address _oracle
-    ) BaseOraclePTPendle(_maxImpliedRate, _maxUpperBound, _twapDuration) {
+        address _market,
+        address _oracle,
+        uint256 _unit,
+        bool _enableBalanceCheck
+    )
+        BaseOraclePTPendle(
+            _maxImpliedRate,
+            _maxUpperBound,
+            _twapDuration,
+            _unit,
+            _market,
+            _enableBalanceCheck
+        )
+    {
         oracle = IAaveOracle(_oracle);
     }
 
@@ -55,7 +65,7 @@ abstract contract BaseFeedPTPendleAave is
     }
 
     function usdPrice() public view returns (uint256) {
-        return oracle.getAssetPrice(asset());
+        return oracle.getAssetPrice(address(asset));
     }
 
     /// @inheritdoc IAggregatorInterface
@@ -63,6 +73,6 @@ abstract contract BaseFeedPTPendleAave is
     function latestAnswer() external view returns (int256) {
         int256 value = int256(_getQuoteAmount());
         int256 assetToUsd = int256(usdPrice());
-        return (value * assetToUsd) / int256(1e8);
+        return (value * assetToUsd) / int256(1e18);
     }
 }
