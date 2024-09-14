@@ -40,14 +40,12 @@ abstract contract BaseFeedPTPendleAave is
         uint32 _twapDuration,
         address _market,
         address _oracle,
-        uint256 _unit,
         bool _enableBalanceCheck
     )
         BaseOraclePTPendle(
             _maxImpliedRate,
             _maxUpperBound,
             _twapDuration,
-            _unit,
             _market,
             _enableBalanceCheck
         )

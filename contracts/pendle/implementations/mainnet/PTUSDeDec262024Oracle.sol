@@ -24,7 +24,6 @@ contract PTUSDeDec262024Oracle is BaseFeedPTPendle {
             1e18,
             _twapDuration,
             _ethUsdAggregator,
-            1e18,
             0xa0ab94DeBB3cC9A7eA77f3205ba4AB23276feD08,
             true
         )

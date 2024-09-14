@@ -30,7 +30,7 @@ abstract contract BaseOraclePTPendle {
     /// @notice The duration of the TWAP used to calculate the PT price
     uint32 public immutable twapDuration;
 
-    uint256 public immutable UNIT;
+    uint256 public immutable UNIT = 1e18;
 
     IERC20 public immutable asset;
     IStandardizedYield public immutable sy;
@@ -45,7 +45,6 @@ abstract contract BaseOraclePTPendle {
         uint256 _maxLowerBound,
         uint256 _maxUpperBound,
         uint32 _twapDuration,
-        uint256 _unit,
         address _market,
         bool _enableBalanceCheck
     ) {
@@ -53,7 +52,6 @@ abstract contract BaseOraclePTPendle {
         maxLowerBound = _maxLowerBound;
         twapDuration = _twapDuration;
         maxUpperBound = _maxUpperBound;
-        UNIT = _unit;
 
         enableBalanceCheck = _enableBalanceCheck;
 

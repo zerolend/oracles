@@ -26,9 +26,8 @@ contract PTrsETHSept262024Oracle is BaseFeedPTPendle {
         BaseFeedPTPendle(
             85e18 / 100, // lower bound is -15%  - 0.85
             105e18 / 100, // upper bound is +5%  - 1.05
-            6 * 60 * 60,
+            30 * 60, // 30 min TWAP
             0x33B13F46a25D836CC0ce91B370305902aB6CF1Be, // rsETH/USD oracle
-            1e18,
             0x6b4740722e46048874d84306B2877600ABCea3Ae, // Pendle Market
             true
         )
