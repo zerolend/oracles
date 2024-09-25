@@ -27,7 +27,7 @@ export default {
     mainnet: {
       url: `https://cloudflare-eth.com`,
       saveDeployments: true,
-      gasPrice: 2000000000,
+      // gasPrice: 2000000000,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
     linea: {
