@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 import { expect } from "chai";
 import { BaseContract, ContractTransactionResponse, Contract } from "ethers";
 
-describe.skip("PTUSDeDec262024Oracle Fork Test", function () {
+describe("PTUSDeDec262024Oracle Fork Test", function () {
   let morphoOracle: BaseContract & {
     deploymentTransaction(): ContractTransactionResponse;
   } & Omit<Contract, keyof BaseContract>;

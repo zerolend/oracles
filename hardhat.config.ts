@@ -8,7 +8,7 @@ dotenv.config();
 import "./tasks/deploy-api3";
 import "./tasks/deploy-api3-eth";
 import "./tasks/deploy-pyth";
-import "./tasks/deploy-pendle";
+import "./tasks/deploy-contract";
 import "./tasks/update-pyth";
 
 export default {
@@ -17,7 +17,8 @@ export default {
   networks: {
     hardhat: {
       forking: {
-        url: `https://cloudflare-eth.com`,
+        url: `https://mainnet.base.org/`,
+        // url: `https://cloudflare-eth.com`,
       },
     },
     blast: {
@@ -34,6 +35,10 @@ export default {
       url: `https://rpc.linea.build/`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
+    base: {
+      url: `https://mainnet.base.org/`,
+      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
+    },
     era: {
       url: `https://mainnet.era.zksync.io`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
@@ -46,6 +51,7 @@ export default {
   etherscan: {
     apiKey: {
       blast: process.env.BLASTSCAN_KEY || "",
+      base: process.env.BASESCAN_KEY || "",
       linea: process.env.LINEASCAN_KEY || "",
       xLayer: process.env.XLAYER_KEY || "",
       mainnet: process.env.ETHERSCAN_KEY || "",

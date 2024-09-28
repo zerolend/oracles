@@ -4,7 +4,7 @@ import { BaseContract, ContractTransactionResponse, Contract } from "ethers";
 import { increaseTo } from "@nomicfoundation/hardhat-network-helpers/dist/src/helpers/time";
 import { mine } from "@nomicfoundation/hardhat-network-helpers";
 
-describe.only("PTsolvBTCBBNDec262024Oracle Fork Test", function () {
+describe("PTsolvBTCBBNDec262024Oracle Fork Test", function () {
   let oracle: BaseContract & {
     deploymentTransaction(): ContractTransactionResponse;
   } & Omit<Contract, keyof BaseContract>;

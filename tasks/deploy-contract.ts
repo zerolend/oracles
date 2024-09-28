@@ -1,6 +1,6 @@
 import { task } from "hardhat/config";
 
-task(`deploy-pendle`)
+task(`deploy-contract`)
   .addParam("id")
   .setAction(async ({ id }, hre) => {
     const [deployer] = await hre.ethers.getSigners();
