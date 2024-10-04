@@ -9,9 +9,9 @@ task(`update-pyth`)
     const pythContract = pythContracts[hre.network.name] as `0x${string}`;
     if (!isAddress(pythContract)) throw new Error("invalid address");
 
-    const contract = await hre.viem.getContractAt(
+    const contract = await hre.ethers.getContractAt(
       "PythAggregatorV3",
-      "0xfc8734ebf4a56a7a6a47ad6d44f1330fd26307a8"
+      "0xA7aF9B21cA84a8CaF3a6857Fe3294b12000e0B70"
     );
 
     const updateData: [`0x${string}`] = [priceid];
@@ -24,7 +24,7 @@ task(`update-pyth`)
       updateData
     )) as any;
 
-    const tx = await contract.write.updateFeeds([priceUpdateData], {
+    const tx = await contract.updateFeeds([priceUpdateData], {
       value: 1000000000n,
     });
 
