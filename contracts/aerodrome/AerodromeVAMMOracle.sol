@@ -33,8 +33,6 @@ contract AerodromeVAMMOracle {
     address public immutable token0;
     address public immutable token1;
 
-    // uint256 private constant TWO_56 = 2 ** 56;
-    // uint256 private constant TWO_112 = 2 ** 112;
     uint256 private constant HALF_UNIT = 1e9;
     uint256 private constant UNIT = 1e18;
 
