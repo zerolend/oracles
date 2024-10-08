@@ -33,7 +33,7 @@ contract EthUsdAggregator {
     }
 
     function description() public pure returns (string memory) {
-        return "A port of a chainlink aggregator powered by redstone feeds";
+        return "A aggregator that combines two chainlink oracles";
     }
 
     function version() public pure returns (uint256) {
@@ -75,6 +75,7 @@ contract EthUsdAggregator {
             uint80 answeredInRound
         )
     {
+        // todo implement round data of both oracles properly
         return (
             _roundId,
             latestAnswer(),
