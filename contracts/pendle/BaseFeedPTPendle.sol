@@ -19,7 +19,7 @@ import {BaseOraclePTPendle} from "./BaseOraclePTPendle.sol";
 /// @title BaseFeedPtPendle
 /// @author Zerolend
 /// @notice Base Contract to implement the AggregatorV2V3Interface for Pendle PT tokens
-abstract contract BaseFeedPTPendle is IAggregatorInterface, BaseOraclePTPendle {
+contract BaseFeedPTPendle is IAggregatorInterface, BaseOraclePTPendle {
     /// @notice The Chainlink aggregator for ASSET/USD
     IAggregatorInterface public assetUsdAggregator;
 
