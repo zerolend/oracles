@@ -18,7 +18,7 @@ import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IAggregatorInterface} from "../interfaces/IAggregatorInterface.sol";
 import {IAerodromeVAMM} from "../interfaces/IAerodromeVAMM.sol";
 
-/// @title Aerodrome_vAMM_Oracle
+/// @title AerodromeVAMMOracle
 /// @notice This contract provides a price oracle for the liquidity pool tokens in a AMM.
 /// @dev This contract interacts with the IAerodromeVAMM interface to fetch reserves and calculate prices.
 /// @dev Reference from https://github.com/AlphaFinanceLab/alpha-homora-v2-contract/blob/master/contracts/oracle/UniswapV2Oracle.sol

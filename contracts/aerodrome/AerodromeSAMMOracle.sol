@@ -13,26 +13,15 @@
 
 pragma solidity ^0.8.12;
 
-interface IAerodromeVAMM {
-    function getReserves()
-        external
-        view
-        returns (
-            uint256 _reserve0,
-            uint256 _reserve1,
-            uint256 _blockTimestampLast
-        );
+import {IERC20Metadata} from "@openzeppelin/contracts/interfaces/IERC20Metadata.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+import {IAggregatorInterface} from "../interfaces/IAggregatorInterface.sol";
+import {IAerodromeVAMM} from "../interfaces/IAerodromeVAMM.sol";
 
-    function sample(
-        address tokenIn,
-        uint256 amountIn,
-        uint256 points,
-        uint256 window
-    ) external view returns (uint256[] memory);
-
-    function totalSupply() external view returns (uint256);
-
-    function token0() external view returns (address);
-
-    function token1() external view returns (address);
+/// @title AerodromeSAMMOracle
+/// @notice This contract provides a price oracle for the liquidity pool tokens in a AMM.
+/// @dev This contract interacts with the IAerodromeVAMM interface to fetch reserves and calculate prices.
+/// @dev Reference from https://github.com/AlphaFinanceLab/alpha-homora-v2-contract/blob/master/contracts/oracle/UniswapV2Oracle.sol
+contract AerodromeSAMMOracle {
+    // todo
 }
