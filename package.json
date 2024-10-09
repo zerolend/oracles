@@ -35,6 +35,7 @@
     "@types/node": ">=18.0.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "@uniswap/v3-core": "^1.0.1",
     "chai": "^4.2.0",
     "ethereum-waffle": "^3.4.4",
     "ethers": "^6.13.2",
