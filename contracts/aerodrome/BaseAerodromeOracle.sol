@@ -17,6 +17,7 @@ import {IERC20Metadata} from "@openzeppelin/contracts/interfaces/IERC20Metadata.
 import {IAggregatorInterface} from "../interfaces/IAggregatorInterface.sol";
 import {IAerodromeVAMM} from "../interfaces/IAerodromeVAMM.sol";
 
+/// @dev Aerodrome Pool contract https://github.com/aerodrome-finance/contracts/blob/main/contracts/Pool.sol
 abstract contract BaseAerodromeOracle {
     IAerodromeVAMM public immutable amm;
     IAggregatorInterface public immutable priceFeed0;
