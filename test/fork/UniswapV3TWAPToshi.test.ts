@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 import { expect } from "chai";
 import { BaseContract, ContractTransactionResponse, Contract } from "ethers";
 
-describe("AEROUSDCvAMMOracle Fork Test", function () {
+describe.only("UniswapV3TWAPToshi Fork Test", function () {
   let oracle: BaseContract & {
     deploymentTransaction(): ContractTransactionResponse;
   } & Omit<Contract, keyof BaseContract>;
@@ -11,8 +11,7 @@ describe("AEROUSDCvAMMOracle Fork Test", function () {
   beforeEach(async function () {
     // Get signers
     [owner] = await ethers.getSigners();
-    // Deploy the contract
-    const oracleD = await ethers.getContractFactory("AEROUSDCvAMMOracle");
+    const oracleD = await ethers.getContractFactory("UniswapV3TWAPToshi");
     oracle = await oracleD.deploy();
     await oracle.waitForDeployment();
   });
