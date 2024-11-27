@@ -40,6 +40,10 @@ export default {
       url: `https://mainnet.base.org/`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
+    zircuit: {
+      url: `https://zircuit-mainnet.drpc.org`,
+      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
+    },
     era: {
       url: `https://mainnet.era.zksync.io`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
@@ -55,6 +59,7 @@ export default {
       base: process.env.BASESCAN_KEY || "",
       linea: process.env.LINEASCAN_KEY || "",
       xLayer: process.env.XLAYER_KEY || "",
+      zircuit: process.env.ZIRCUIT_KEY || "",
       mainnet: process.env.ETHERSCAN_KEY || "",
       manta: "",
       era: process.env.ZKSYNC_KEY || "",
@@ -91,6 +96,14 @@ export default {
           apiURL:
             "https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/XLAYER",
           browserURL: "https://www.oklink.com/xlayer", //or https://www.oklink.com/xlayer for mainnet
+        },
+      },
+      {
+        network: "zircuit",
+        chainId: 48900,
+        urls: {
+          apiURL: "https://explorer.zircuit.com/api/contractVerifyHardhat",
+          browserURL: "https://explorer.zircuit.com",
         },
       },
     ],
