@@ -1,6 +1,7 @@
-import "@nomicfoundation/hardhat-ethers";
-import "hardhat-deploy";
-import "@nomicfoundation/hardhat-verify";
+// import "@nomicfoundation/hardhat-ethers";
+// import "hardhat-deploy";
+// import "@nomicfoundation/hardhat-verify";
+import '@matterlabs/hardhat-zksync';
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -14,6 +15,14 @@ import "./tasks/update-pyth";
 export default {
   solidity: "0.8.20",
   defaultNetwork: "hardhat",
+  zksolc: {
+    version: "1.5.2",
+    settings: {
+      enableEraVMExtensions: true
+      // find all available options in the official documentation
+      // https://era.zksync.io/docs/tools/hardhat/hardhat-zksync-solc.html#configuration
+    },
+  },
   networks: {
     hardhat: {
       forking: {
@@ -51,6 +60,15 @@ export default {
     manta: {
       url: `https://pacific-rpc.manta.network/http`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
+    },
+    sophon: {
+      url: "https://rpc.sophon.xyz",
+      ethNetwork: "mainnet",
+      verifyURL: "https://verification-explorer.sophon.xyz/contract_verification",
+      browserVerifyURL: "https://explorer.sophon.xyz/",
+      enableVerifyURL: true,
+      zksync: true,
+      accounts: [process.env.WALLET_PRIVATE_KEY as string]
     },
   },
   etherscan: {
@@ -104,6 +122,14 @@ export default {
         urls: {
           apiURL: "https://explorer.zircuit.com/api/contractVerifyHardhat",
           browserURL: "https://explorer.zircuit.com",
+        },
+      },
+      {
+        network: "sophon",
+        chainId: 50104,
+        urls: {
+          apiURL: "https://api-explorer.sophon.xyz/api",
+          browserURL: "https://explorer.sophon.xyz/",
         },
       },
     ],
