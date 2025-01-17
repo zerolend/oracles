@@ -23,6 +23,7 @@ export const priceIdsUSD = {
 
 export const pythContracts: { [key: string]: string } = {
   manta: "0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
+  mainnet: "0x4305fb66699c3b2702d4d05cf36551390a4c69c6",
   base: "0x8250f4aF4B972684F7b336503E2D6dFeDeB1487a",
   zksync: "0xf087c864AEccFb6A2Bf1Af6A0382B0d0f6c5D834",
   blastSepolia: "0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
