@@ -26,7 +26,7 @@ contract DiaDataAggregator is IAggregatorInterface {
     IDiaData public consumer;
 
     /// @notice Default key to fetch data from the DiaData oracle.
-    string public immutable defaultKey;
+    string public defaultKey;
 
     /**
      * @notice Constructor to initialize the DiaDataAggregator contract.
