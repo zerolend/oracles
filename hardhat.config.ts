@@ -10,6 +10,7 @@ import "./tasks/deploy-api3-eth";
 import "./tasks/deploy-pyth";
 import "./tasks/deploy-contract";
 import "./tasks/update-pyth";
+import "./tasks/deploy-dia-data";
 
 export default {
   solidity: "0.8.20",
