@@ -42,7 +42,7 @@ contract PythAggregatorV3 {
     }
 
     function decimals() public view virtual returns (uint8) {
-        PythStructs.Price memory price = pyth.getPriceUnsafe(priceId);
+        PythStructs.Price memory price = pyth.getPriceNoOlderThan(priceId, 1 days);
         return uint8(-1 * int8(price.expo));
     }
 
