@@ -25,9 +25,12 @@ interface IOracle {
 /// @title SpectraChainlinkOracleV2
 /// @author ZeroLend
 /// @notice ZeroLend oracle using Chainlink-compliant feeds.
-contract PTUSROracle  {
+contract SpectraPTUSR22Feb2025Oracle  {
 
+    // Oracle that gets price as Spectra PT-wstUSR/USR
     IOracle public ptUSRUSRoracle;
+
+    // Oracle that gets price as USR/USD
     IOracle public usrUSDOracle;
 
     constructor(IOracle _ptUSRUSRoracle, IOracle _usrUSDOracle) {
