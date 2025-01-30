@@ -13,10 +13,10 @@ describe("PTUSROracle Fork Test", function () {
     const Spectra_PTUSR_USR_ORACLE = "0x0ba73080A12f5F0b0b37C5518BdE99b99067D259";
     const USR_USD_ORACLE = "0xf9C7c25FE58AAA494EE7ff1f6Cf0b70d7C7ce88c";
     // Deploy the contract
-    const PTUSROracle = await ethers.getContractFactory(
-      "PTUSROracle"
+    const SpectraPTUSR22Feb2025Oracle = await ethers.getContractFactory(
+      "SpectraPTUSR22Feb2025Oracle"
     );
-    ptUSROracle = await PTUSROracle.deploy(
+    ptUSROracle = await SpectraPTUSR22Feb2025Oracle.deploy(
         Spectra_PTUSR_USR_ORACLE,
         USR_USD_ORACLE
     );
