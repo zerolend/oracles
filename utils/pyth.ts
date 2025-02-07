@@ -14,6 +14,7 @@ export const priceIdsUSD = {
   zero: "0x9a11b5c6c8d6d266444459316c3aee7684aaa5a5434b189a173d8cddbb3deaae",
   wbtc: "0xe62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43",
   wsteth: "0x6df640f3b8963d8f8358f791f352b8364513f6ab1cca5ed3f1f7b5448980e784",
+  bera: "0x962088abcfdbdb6e30db2e340c8cf887d9efb311b1f2f17b155a63dbb6d40265",
   manta: "0xc3883bcf1101c111e9fcfe2465703c47f2b638e21fef2cce0502e6c8f416e0e2",
 };
 
@@ -28,5 +29,6 @@ export const pythContracts: { [key: string]: string } = {
   zksync: "0xf087c864AEccFb6A2Bf1Af6A0382B0d0f6c5D834",
   blastSepolia: "0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
   linea: "0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
+  berachain: "0x2880ab155794e7179c9ee2e38200202908c17b43",
   blast: "0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
 };

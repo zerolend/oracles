@@ -9,6 +9,7 @@ import "./tasks/deploy-api3";
 import "./tasks/deploy-api3-eth";
 import "./tasks/deploy-pyth";
 import "./tasks/deploy-contract";
+import "./tasks/deploy-double-agg";
 import "./tasks/update-pyth";
 
 export default {
@@ -52,6 +53,10 @@ export default {
       url: `https://pacific-rpc.manta.network/http`,
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
+    berachain: {
+      url: `https://rpc.berachain.com`,
+      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
+    },
   },
   etherscan: {
     apiKey: {
@@ -61,6 +66,7 @@ export default {
       xLayer: process.env.XLAYER_KEY || "",
       zircuit: process.env.ZIRCUIT_KEY || "",
       mainnet: process.env.ETHERSCAN_KEY || "",
+      berachain: process.env.BERASCAN_KEY || "",
       manta: "",
       era: process.env.ZKSYNC_KEY || "",
     },
@@ -71,6 +77,14 @@ export default {
         urls: {
           apiURL: "https://pacific-explorer.manta.network/api",
           browserURL: "https://pacific-explorer.manta.network",
+        },
+      },
+      {
+        network: "berachain",
+        chainId: 80094,
+        urls: {
+          apiURL: "https://api.berascan.com/api",
+          browserURL: "https://berascan.com",
         },
       },
       {
